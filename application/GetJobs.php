@@ -33,7 +33,6 @@ class GetJobs
             //Insert job into database
             $this->addJob($post_id, $parent_id, $job_types, $job_desc, $programming_language, $frameworks,
                 $package_managers, $databases, $time_posted);
-            echo '<h3>Added ' . $job_id . '</h3>';
         }
 
         //Get total counts of each category (programming language, job type, framework, database) for adding to db table
@@ -71,10 +70,15 @@ class GetJobs
         $found_languages = '';
         foreach ($program_languages as $find_language) {
             if ($find_language == 'java') {
-                $find_language = 'java ';//add space after java so it does not get counted within javascript
-            }
-            $pos = strpos($text, $find_language);
-            $find_language = str_replace('java ','java',$find_language); //remove the space from java before adding
+			    //Using word boundaries for "java" so it doesn't get picked up within javascript
+			    if (preg_match("/\b".preg_quote($find_language)."\b/i", $text)) {
+					$pos = 1;
+				} else {
+				    $pos = 0;
+				}	
+            } else {
+                $pos = strpos($text, $find_language);
+		    }		
             if ($pos > 0) {
                 $found_languages .= $find_language.',';
             }
@@ -143,7 +147,11 @@ class GetJobs
         $program_languages = explode(',', PROGRAMMING_LANGUAGES);
         $type = 'language';
         foreach ($program_languages as $cat) {
-            $query = "SELECT COUNT(post_id) AS cat_count FROM hn_posts WHERE languages LIKE :cat";
+		    if ($cat == 'java') {
+		        $query = "SELECT COUNT(post_id) AS cat_count FROM `hn_posts` WHERE `languages` LIKE '%java%' AND `languages` NOT LIKE '%javascript%'";
+			} else {	
+                $query = "SELECT COUNT(post_id) AS cat_count FROM hn_posts WHERE languages LIKE :cat";
+			}	
 			$result = $this->db->select($query, array('cat' => "%$cat%"));
             if (count($result) > 0) {
                 $cat_count = $result[0]['cat_count'];
