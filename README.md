@@ -19,10 +19,10 @@ All programming languages, frameworks, databases and job types that are checked 
 The charts are using D3.js. All js files for these are located in vendor/d3
 
 ## No Guarantees
-This is a side project we put together for fun and out of curiosity. There may be bugs that we don't know about. If you find any, please let us know. Keep in mind however that we can't guarantee we will make custom changes or additions for free. The software is provided as is. Feel free to add your own contributions and open a pull request or read below if you want to hire us for customizations.
+This is a side project we put together for fun and out of curiosity. There may be bugs that we don't know about. If you find any, please let us know. Keep in mind however that we can't guarantee we will make changes or additions. The software is provided as is. Feel free to add your own contributions and open a pull request.
 
 ### Want to hire us?
-Would you like help with a custom web or mobile app? Contact Us at http://www.gosmartsolutions.com/#contact and we'll provide you with a quote based on your requirements.
+Would you like help with a custom web or mobile app? Contact Us at http://www.gosmartsolutions.com/ and we'll provide you with a quote based on your requirements.
 
 
 
