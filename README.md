@@ -1,5 +1,5 @@
 # Hacker News: Who Is Hiring?
-Pulls jobs from the Hacker News API for "Who Is Hiring" threads and formats the data in a friendly and searchable way. Pulls in counts for programming languages, databases, frameworks and job types. Allows you to search the results. 
+Pulls jobs from the Hacker News API for "Who Is Hiring" threads and formats the data in a friendly and searchable way. Pulls in counts for programming languages, databases, frameworks and job types. Allows you to search the results. You can view a demo of the output from http://www.gosmartsolutions.com/hn/
 
 ## Requirements
 Requires PHP 5.4+ and MySQL with PDO installed.
