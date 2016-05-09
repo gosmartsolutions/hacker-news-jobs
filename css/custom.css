@@ -1,0 +1,70 @@
+body {
+    background: #eeefef;
+    font-family: sans-serif;
+}
+
+.job {
+    height: 85px;
+    background: #FFF;
+    padding-left: 2em;
+    padding-right: 2em;
+    border-bottom: 1px solid #AAA;
+    padding-top:5px;
+}
+.job h4 {
+    padding-top:5px;
+}
+.job_type {
+    padding-top: 10px;
+}
+
+.job_title{
+    padding-top: 3px;
+}
+
+.bar {
+    fill: steelblue;
+}
+
+.bar:hover {
+    fill: brown;
+}
+
+.axis {
+    font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.x.axis path {
+    display: none;
+}
+
+.jumbotron {
+    margin-bottom: 0px;
+    padding-bottom: 20px
+}
+
+
+.arc text {
+    font: 10px sans-serif;
+    text-anchor: middle;
+}
+
+.arc path {
+    stroke: #fff;
+}
+
+.badge {
+    background-color: #eeefef;
+    color: darkslategrey;
+}
+
+.list-unstyled li {
+    padding-bottom: 8px;
+}
