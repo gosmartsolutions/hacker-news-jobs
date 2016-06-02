@@ -23,7 +23,7 @@ var chartLanguages = d3.select("languageschart").append("svg")
     .append("g")
     .attr("transform", "translate(" + width / 3 + "," + height / 2 + ")");
 
-d3.tsv("data.php?type=language", type, function(error, data) {
+d3.tsv("data.php?type=language&id=" + getQueryVariable("id"), type, function(error, data) {
     if (error) throw error;
 
     var g = chartLanguages.selectAll(".arc")
@@ -44,4 +44,15 @@ d3.tsv("data.php?type=language", type, function(error, data) {
 function type(d) {
     d.frequency = +d.frequency;
     return d;
+}
+
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
 }

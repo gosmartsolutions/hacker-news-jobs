@@ -143,20 +143,26 @@ class GetJobs
 
     public function getCategoryCounts($id)
     {
-        //Get and add program language counts
+        //First delete current counts for id
+		$this->db->delete("cat_count","parent_id = :pid", array("pid" => $id));
+		echo 'Deleted counts';
+		
+		//Get and add program language counts
         $program_languages = explode(',', PROGRAMMING_LANGUAGES);
         $type = 'language';
         foreach ($program_languages as $cat) {
 		    if ($cat == 'java') {
-		        $query = "SELECT COUNT(post_id) AS cat_count FROM `hn_posts` WHERE `languages` LIKE '%java%' AND `languages` NOT LIKE '%javascript%'";
+		        $query = "SELECT COUNT(post_id) AS cat_count FROM `hn_posts` WHERE `parent_id` = :pid AND `languages` LIKE :cat 
+				          AND `languages` NOT LIKE '%javascript%'";
 			} else {	
-                $query = "SELECT COUNT(post_id) AS cat_count FROM hn_posts WHERE languages LIKE :cat";
+                $query = "SELECT COUNT(post_id) AS cat_count FROM `hn_posts` WHERE `parent_id` = :pid AND `languages` LIKE :cat";
 			}	
-			$result = $this->db->select($query, array('cat' => "%$cat%"));
+			$result = $this->db->select($query, array('cat' => "%$cat%", 'pid' => $id));
             if (count($result) > 0) {
                 $cat_count = $result[0]['cat_count'];
                 if ($cat_count > 0) {
                     $this->addCategoryCount($type,$cat,$id,$cat_count);
+					echo '<br />Added '.$type.' '.$cat.' with count: '.$cat_count;
                 }
             }
         }
@@ -165,12 +171,13 @@ class GetJobs
         $frameworks = explode(',', FRAMEWORKS);
         $type = 'framework';
         foreach ($frameworks as $cat) {
-            $query = "SELECT COUNT(post_id) AS cat_count FROM hn_posts WHERE frameworks LIKE :cat";
-            $result = $this->db->select($query, array('cat' => "%$cat%"));
+            $query = "SELECT COUNT(post_id) AS cat_count FROM `hn_posts` WHERE `parent_id` = :pid AND `frameworks` LIKE :cat";
+            $result = $this->db->select($query, array('cat' => "%$cat%", 'pid' => $id));
             if (count($result) > 0) {
                 $cat_count = $result[0]['cat_count'];
                 if ($cat_count > 0) {
                     $this->addCategoryCount($type,$cat,$id,$cat_count);
+					echo '<br />Added '.$type.' '.$cat.' with count: '.$cat_count;
                 }
             }
         }
@@ -179,12 +186,13 @@ class GetJobs
         $databases = explode(',', DATABASES);
         $type = 'database';
         foreach ($databases as $cat) {
-            $query = "SELECT COUNT(post_id) AS cat_count FROM `hn_posts` WHERE `databases` LIKE :cat";
-            $result = $this->db->select($query, array('cat' => "%$cat%"));
+            $query = "SELECT COUNT(post_id) AS cat_count FROM `hn_posts` WHERE `parent_id` = :pid AND `databases` LIKE :cat";
+            $result = $this->db->select($query, array('cat' => "%$cat%", 'pid' => $id));
             if (count($result) > 0) {
                 $cat_count = $result[0]['cat_count'];
                 if ($cat_count > 0) {
                     $this->addCategoryCount($type,$cat,$id,$cat_count);
+					echo '<br />Added '.$type.' '.$cat.' with count: '.$cat_count;
                 }
             }
         }
@@ -193,12 +201,13 @@ class GetJobs
         $job_types = explode(',', JOB_TYPES);
         $type = 'job_type';
         foreach ($job_types as $cat) {
-            $query = "SELECT COUNT(post_id) AS cat_count FROM hn_posts WHERE job_type LIKE :cat";
-            $result = $this->db->select($query, array('cat' => "%$cat%"));
+            $query = "SELECT COUNT(post_id) AS cat_count FROM `hn_posts` WHERE `parent_id` = :pid AND `job_type` LIKE :cat";
+            $result = $this->db->select($query, array('cat' => "%$cat%", 'pid' => $id));
             if (count($result) > 0) {
                 $cat_count = $result[0]['cat_count'];
                 if ($cat_count > 0) {
                     $this->addCategoryCount($type,$cat,$id,$cat_count);
+					echo '<br />Added '.$type.' '.$cat.' with count: '.$cat_count;
                 }
             }
         }

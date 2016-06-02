@@ -1,6 +1,10 @@
 <?php
 require 'application/Common.php';
 $jobData = new GetData();
+$parent_id = n($_GET['id']);
+if ($parent_id == "") {
+    $parent_id = 11814828;
+}
 ?>
 <!doctype html>
 <html>
@@ -17,10 +21,9 @@ $jobData = new GetData();
     <div class="container">
         <h1>Hacker News: Who Is Hiring?</h1>
         <p>
-            Stats from the latest Hacker News <a href="https://news.ycombinator.com/item?id=11611867" target="_blank">Who is Hiring</a> post. Pulls in counts for
+            Stats from the latest Hacker News <a href="https://news.ycombinator.com/item?id=<?=$parent_id?>" target="_blank">Who is Hiring</a> post. Pulls in counts for
             programming languages, databases, frameworks and job types. Also displays results and allows you to search the results.
         </p>
-        <p><a class="btn btn-primary btn-lg" href="https://github.com/gosmartsolutions/hacker-news-jobs" role="button">Get Source Code (GitHub)</a>&nbsp;&nbsp;&nbsp;<a class="btn btn-success btn-lg" href="http://www.gosmartsolutions.com/" role="button">Hire Us</a></p>
     </div>
 </div>
 
@@ -34,7 +37,7 @@ $jobData = new GetData();
                         <ul class="list-unstyled">
                             <?php
                             $type = 'language';
-                            $catCounts = $jobData->categoryCounts($type);
+                            $catCounts = $jobData->categoryCounts($type,$parent_id);
                             foreach ($catCounts as $cat):
                                 echo "<li>".e($cat['category']).": <span class='badge'>".e($cat['total_count'])."</span></li>";
                             endforeach;
@@ -55,7 +58,7 @@ $jobData = new GetData();
                         <ul class="list-unstyled">
                             <?php
                             $type = 'job_type';
-                            $catCounts = $jobData->categoryCounts($type);
+                            $catCounts = $jobData->categoryCounts($type,$parent_id);
                             foreach ($catCounts as $cat):
                                 echo "<li>".e($cat['category']).": <span class='badge'>".e($cat['total_count'])."</span></li>";
                             endforeach;
@@ -78,7 +81,7 @@ $jobData = new GetData();
                         <ul class="list-unstyled">
                             <?php
                             $type = 'framework';
-                            $catCounts = $jobData->categoryCounts($type);
+                            $catCounts = $jobData->categoryCounts($type,$parent_id);
                             foreach ($catCounts as $cat):
                                 echo "<li>".e($cat['category']).": <span class='badge'>".e($cat['total_count'])."</span></li>";
                             endforeach;
@@ -99,7 +102,7 @@ $jobData = new GetData();
                         <ul class="list-unstyled ">
                             <?php
                             $type = 'database';
-                            $catCounts = $jobData->categoryCounts($type);
+                            $catCounts = $jobData->categoryCounts($type,$parent_id);
                             foreach ($catCounts as $cat):
                                 echo "<li>".e($cat['category']).": <span class='badge'>".e($cat['total_count'])."</span></li>";
                             endforeach;
@@ -114,7 +117,7 @@ $jobData = new GetData();
         </div>
     </div>
 
-    <table id="jobs" class="table" cellspacing="0" width="100%">
+    <table id="jobs" class="table table-striped" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>Job Title</th>
@@ -135,7 +138,7 @@ $jobData = new GetData();
         </tfoot>
         <tbody>
         <?php
-        $allJobs = $jobData->getAllJobs();
+        $allJobs = $jobData->getAllJobs($parent_id);
         foreach ($allJobs as $job):
             //Build out title from description and clean it up
             $arr = explode('<p>', $job['job_desc'], 2);
@@ -156,6 +159,7 @@ $jobData = new GetData();
         ?>
         </tbody>
     </table>
+    <p><a class="btn btn-primary btn-sm" href="https://github.com/gosmartsolutions/hacker-news-jobs" target="_blank" role="button">Get Source Code (GitHub)</a></p>
 </div>
 
 <script type="text/javascript" src="https://cdn.datatables.net/t/bs/jq-2.2.0,dt-1.10.11,r-2.0.2,sc-1.4.1/datatables.min.js"></script>
@@ -166,10 +170,10 @@ $(document).ready(function() {
 </script>
 
 <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script src="vendor/d3/frameworks.js" charset="utf-8"></script>
-<script src="vendor/d3/program_languages.js" charset="utf-8"></script>
-<script src="vendor/d3/jobtypes.js" charset="utf-8"></script>
-<script src="vendor/d3/databases.js" charset="utf-8"></script>
+<script src="vendor/d3/frameworks.js?id=<?=$parent_id?>" charset="utf-8"></script>
+<script src="vendor/d3/program_languages.js?id=<?=$parent_id?>" charset="utf-8"></script>
+<script src="vendor/d3/jobtypes.js?id=<?=$parent_id?>" charset="utf-8"></script>
+<script src="vendor/d3/databases.js?id=<?=$parent_id?>" charset="utf-8"></script>
 </body>
 </html>
 
