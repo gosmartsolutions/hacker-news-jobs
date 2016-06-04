@@ -70,12 +70,12 @@ class GetJobs
         $found_languages = '';
         foreach ($program_languages as $find_language) {
             if ($find_language == 'java') {
-			    //Using word boundaries for "java" so it doesn't get picked up within javascript
-			    if (preg_match("/\b".preg_quote($find_language)."\b/i", $text)) {
-					$pos = 1;
-				} else {
-				    $pos = 0;
-				}	
+	         //Using word boundaries for "java" so it doesn't get picked up within javascript
+		 if (preg_match("/\b".preg_quote($find_language)."\b/i", $text)) {
+		      $pos = 1;
+		 } else {
+		     $pos = 0;
+		 }	
             } else {
                 $pos = strpos($text, $find_language);
 		    }		
@@ -144,26 +144,26 @@ class GetJobs
     public function getCategoryCounts($id)
     {
         //First delete current counts for id
-		$this->db->delete("cat_count","parent_id = :pid", array("pid" => $id));
-		echo 'Deleted counts';
+	$this->db->delete("cat_count","parent_id = :pid", array("pid" => $id));
+	echo 'Deleted counts';
 		
-		//Get and add program language counts
+	//Get and add program language counts
         $program_languages = explode(',', PROGRAMMING_LANGUAGES);
         $type = 'language';
         foreach ($program_languages as $cat) {
-		    if ($cat == 'java') {
-		        $query = "SELECT COUNT(post_id) AS cat_count FROM `hn_posts` WHERE `parent_id` = :pid AND `languages` LIKE :cat 
-				          AND `languages` NOT LIKE '%javascript%'";
-			} else {	
-                $query = "SELECT COUNT(post_id) AS cat_count FROM `hn_posts` WHERE `parent_id` = :pid AND `languages` LIKE :cat";
-			}	
-			$result = $this->db->select($query, array('cat' => "%$cat%", 'pid' => $id));
+	    if ($cat == 'java') {
+	         $query = "SELECT COUNT(post_id) AS cat_count FROM `hn_posts` WHERE `parent_id` = :pid AND `languages` LIKE :cat 
+			    AND `languages` NOT LIKE '%javascript%'";
+            } else {	
+                  $query = "SELECT COUNT(post_id) AS cat_count FROM `hn_posts` WHERE `parent_id` = :pid AND `languages` LIKE :cat";
+	    }	
+	    $result = $this->db->select($query, array('cat' => "%$cat%", 'pid' => $id));
             if (count($result) > 0) {
-                $cat_count = $result[0]['cat_count'];
-                if ($cat_count > 0) {
-                    $this->addCategoryCount($type,$cat,$id,$cat_count);
-					echo '<br />Added '.$type.' '.$cat.' with count: '.$cat_count;
-                }
+                 $cat_count = $result[0]['cat_count'];
+                 if ($cat_count > 0) {
+                      $this->addCategoryCount($type,$cat,$id,$cat_count);
+		      echo '<br />Added '.$type.' '.$cat.' with count: '.$cat_count;
+                 }
             }
         }
 
