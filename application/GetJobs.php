@@ -177,7 +177,7 @@ class GetJobs
                 $cat_count = $result[0]['cat_count'];
                 if ($cat_count > 0) {
                     $this->addCategoryCount($type,$cat,$id,$cat_count);
-					echo '<br />Added '.$type.' '.$cat.' with count: '.$cat_count;
+		    echo '<br />Added '.$type.' '.$cat.' with count: '.$cat_count;
                 }
             }
         }
@@ -192,7 +192,7 @@ class GetJobs
                 $cat_count = $result[0]['cat_count'];
                 if ($cat_count > 0) {
                     $this->addCategoryCount($type,$cat,$id,$cat_count);
-					echo '<br />Added '.$type.' '.$cat.' with count: '.$cat_count;
+		    echo '<br />Added '.$type.' '.$cat.' with count: '.$cat_count;
                 }
             }
         }
@@ -207,7 +207,7 @@ class GetJobs
                 $cat_count = $result[0]['cat_count'];
                 if ($cat_count > 0) {
                     $this->addCategoryCount($type,$cat,$id,$cat_count);
-					echo '<br />Added '.$type.' '.$cat.' with count: '.$cat_count;
+		    echo '<br />Added '.$type.' '.$cat.' with count: '.$cat_count;
                 }
             }
         }
