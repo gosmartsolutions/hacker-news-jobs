@@ -21,7 +21,7 @@ class GetData
     public function getAllJobs($parent_id)
     {
         $query = "SELECT * FROM hn_posts WHERE parent_id = :pid LIMIT 700";
-		$result = $this->db->select($query, array('pid' => $parent_id));
+	$result = $this->db->select($query, array('pid' => $parent_id));
         return $result;
     }
 }
