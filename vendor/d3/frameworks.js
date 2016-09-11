@@ -2,8 +2,8 @@ var width = 450,
     height = 300,
     radius = Math.min(width, height) / 2;
 
-var color = d3.scale.ordinal()
-    .range(["#727272", "#f1595f", "#79c36a", "#599ad3", "#f9a65a", "#9e66ab", "#cd7058", "#d77fb3"]);
+var fcolor = d3.scale.ordinal()
+    .range(colors);
 
 var arc = d3.svg.arc()
     .outerRadius(radius - 10)
@@ -33,12 +33,7 @@ d3.tsv("data.php?type=framework&id=" + getQueryVariable("id"), type, function(er
 
     g.append("path")
         .attr("d", arc)
-        .style("fill", function(d) { return color(d.data.title); });
-
-    g.append("text")
-        .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-        .attr("dy", ".35em")
-        .text(function(d) { return d.data.title; });
+        .style("fill", function(d) { return fcolor(d.data.title); });
 });
 
 function type(d) {
