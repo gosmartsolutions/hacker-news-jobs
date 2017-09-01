@@ -1,8 +1,9 @@
 <?php
+
 require 'application/Common.php';
 $jobData = new GetData();
 $parent_id = n($_GET['id']);
-if ($parent_id == "") {
+if (empty($parent_id)) {
     $parent_id = 11814828;
 }
 $color_count = 1;
@@ -10,7 +11,7 @@ $graph_colors = explode(',', GRAPH_COLORS);
 foreach ($graph_colors as $badge_color):
     ${'badge'.$color_count} = $badge_color;
     $color_count += 1;
-    $d3_colors .= '"'.$badge_color.'", ';//Format color about for D3 graphs .range
+    $d3_colors .= '"'.$badge_color.'", '; // Format color about for D3 graphs .range
 endforeach;
 
 $d3_colors = rtrim($d3_colors, ',');
