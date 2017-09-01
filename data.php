@@ -1,8 +1,9 @@
 <?php
+
 require 'application/Common.php';
 $allCats = new GetData();
 $parent_id = n($_GET['id']);
-if ($parent_id == "") {
+if (empty($parent_id)) {
     $parent_id = 11814828;
 }
 
